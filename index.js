@@ -74,9 +74,12 @@ app.post('/api/persons', (req, res, next) => {
         })
         contact.save()
             .then(savedContact => {
+                console.log('Saved ' + savedContact)
                 res.json(savedContact)
             })
-            .catch( error => next(error) )
+            .catch( error => {
+                console.log("Error! Why?")
+                next(error)} )
     }
 })
 
