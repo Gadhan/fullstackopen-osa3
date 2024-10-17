@@ -39,10 +39,6 @@ app.get('/api/persons/:id', (req, res, next) => {
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
-    /*
-    const id = Number(req.params.id)
-    persons = persons.filter(person => person.id !== id)
-    res.status(204).end()*/
     Contact.findByIdAndDelete(req.params.id)
         .then(result => {
             res.status(204).end()
@@ -58,27 +54,15 @@ app.post('/api/persons', (req, res, next) => {
     if(!newPerson.number){
         return res.status(400).json({error:'no number provided'})
     }else{
-        /*const person = persons.find(person => person.name === newPerson.name)
-        if(person){
-        return res.status(400).json({error:'name must be unique'})
-        }else{
-            //const id = Math.round(Math.random() * 100000)
-            const returnPerson = JSON.parse(JSON.stringify(newPerson))
-            newPerson.id = id
-            persons = persons.concat(newPerson)
-            return res.status(200).json({returnPerson})
-        }*/
         const contact = new Contact({
             name: newPerson.name,
             number: newPerson.number
         })
         contact.save()
             .then(savedContact => {
-                console.log('Saved ' + savedContact)
                 res.json(savedContact)
             })
             .catch( error => {
-                console.log("Error! Why?")
                 next(error)} )
     }
 })
