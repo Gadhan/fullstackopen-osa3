@@ -62,8 +62,7 @@ app.post('/api/persons', (req, res, next) => {
             .then(savedContact => {
                 res.json(savedContact)
             })
-            .catch( error => {
-                next(error)} )
+            .catch( error => next(error))
     }
 })
 
